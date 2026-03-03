@@ -1,65 +1,349 @@
-import Image from "next/image";
+﻿import type { Metadata } from "next";
+
+type Location = {
+  city: string;
+  address: string;
+  phone: string;
+  hours: string;
+  mapEmbed: string;
+  mapLink: string;
+};
+
+type Barber = {
+  name: string;
+  specialty: string;
+  shift: string;
+  location: string;
+};
+
+const locations: Location[] = [
+  {
+    city: "Alsunnah Barbershop",
+    address: "Pin Google Maps: Alsunnah Barbershop, Kota Probolinggo, Jawa Timur",
+    phone: "+62 822-1752-2019",
+    hours: "Setiap hari, hingga 22:00",
+    mapEmbed: "https://www.google.com/maps?q=-7.7558229,113.2160418&z=17&output=embed",
+    mapLink: "https://www.google.com/maps/dir/?api=1&destination=-7.7558229,113.2160418",
+  },
+  {
+    city: "Al Sunnah Barbershop 2",
+    address: "Al Sunnah Barbershop 2, Kota Probolinggo, Jawa Timur (sesuai pin Google Maps)",
+    phone: "+62 811-3333-9090",
+    hours: "Setiap hari, 10:00 - 22:00",
+    mapEmbed: "https://www.google.com/maps?q=Al+Sunnah+Barbershop+2+Probolinggo&output=embed",
+    mapLink: "https://www.google.com/maps/dir/?api=1&destination=Al+Sunnah+Barbershop+2+Probolinggo",
+  },
+];
+
+const barbers: Barber[] = [
+  {
+    name: "Ust. Fikri",
+    specialty: "Classic fade, beard shape",
+    shift: "Pagi",
+    location: "Alsunnah Barbershop",
+  },
+  {
+    name: "Akbar",
+    specialty: "Textured crop, modern pompadour",
+    shift: "Siang",
+    location: "Alsunnah Barbershop",
+  },
+  {
+    name: "Jimny",
+    specialty: "Classic fade, beard trim",
+    shift: "Pagi",
+    location: "Al Sunnah Barbershop 2",
+  },
+  {
+    name: "Riko",
+    specialty: "Textured crop, styling",
+    shift: "Siang",
+    location: "Al Sunnah Barbershop 2",
+  },
+  {
+    name: "Dimas",
+    specialty: "Buzz cut, hot towel shave",
+    shift: "Sore",
+    location: "Al Sunnah Barbershop 2",
+  },
+  {
+    name: "Yunus",
+    specialty: "Kids cut, clean side part",
+    shift: "Malam",
+    location: "Al Sunnah Barbershop 2",
+  },
+];
+
+const highlights = [
+  { label: "Google Reviews", value: "62+" },
+  { label: "Rating Google", value: "4.5/5" },
+  { label: "Cabang Aktif", value: "2 Lokasi" },
+];
+
+const services = ["Fade Cut", "Classic Cut", "Beard Trim", "Hot Towel Shave", "Hair Styling", "Kids Cut"];
+
+const priceSections = [
+  {
+    title: "Haircut",
+    items: [
+      { name: "Haircut Man", price: "Rp30.000" },
+      { name: "Haircut Girl", price: "Rp50.000" },
+      { name: "Hair Tattoo / Shaving", price: "Rp10.000" },
+    ],
+  },
+  {
+    title: "Hair Color",
+    items: [
+      { name: "Hair Toning / Basic Colour", price: "Rp50.000" },
+      { name: "Highlight Basic", price: "Rp70.000" },
+      { name: "Highlight Colour", price: "Rp120.000" },
+      { name: "Full Colour", price: "Rp200.000" },
+    ],
+  },
+  {
+    title: "Hair Treatment",
+    items: [
+      { name: "Face Mask", price: "Rp40.000" },
+      { name: "Hair Mask", price: "Rp75.000" },
+      { name: "Creambath", price: "Rp80.000" },
+      { name: "Down Perm / Root Lift", price: "Rp70.000" },
+      { name: "Hair Perming", price: "Rp150.000" },
+      { name: "Chemical", price: "Rp200.000" },
+      { name: "Keratin", price: "Rp200.000" },
+    ],
+  },
+];
+
+const heroPhoto =
+  "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1800&q=80";
+
+export const metadata: Metadata = {
+  title: "Al Sunnah Probolinggo",
+  description: "Landing page Al Sunnah Barbershop Probolinggo",
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="hero-gradient page-enter relative overflow-x-clip text-white">
+      <div aria-hidden className="ambient-bg" />
+      <div aria-hidden className="ambient-grid" />
+      <div aria-hidden className="noise-overlay" />
+
+      <header className="sticky top-0 z-30 border-b border-rose-300/30 bg-[#2a0810]/90 backdrop-blur animate-slide-down">
+        <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
+          <a href="#hero" className="text-xl font-semibold tracking-[0.22em] text-rose-100 nav-link">
+            AL SUNNAH
+          </a>
+          <ul className="hidden items-center gap-7 text-sm font-medium md:flex">
+            <li><a className="hover:text-rose-100 nav-link" href="#about">About</a></li>
+            <li><a className="hover:text-rose-100 nav-link" href="#services">Services</a></li>
+            <li><a className="hover:text-rose-100 nav-link" href="#locations">Location</a></li>
+            <li><a className="hover:text-rose-100 nav-link" href="#barbers">Kapster</a></li>
+            <li><a className="rounded-full border border-rose-200/70 px-4 py-2 text-rose-50 hover:bg-rose-100/10 nav-link" href="#contact">Book</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main className="relative z-10">
+        <section id="hero" className="relative min-h-[92vh] w-full py-20">
+          <div aria-hidden className="hero-photo-bg" style={{ backgroundImage: `url(${heroPhoto})` }} />
+          <div aria-hidden className="hero-photo-overlay" />
+          <div className="mx-auto grid min-h-[92vh] w-full max-w-6xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2">
+            <div aria-hidden className="hero-orb hero-orb-a" />
+            <div aria-hidden className="hero-orb hero-orb-b" />
+
+            <div className="relative z-10 space-y-6 animate-fade-up">
+              <p className="inline-flex rounded-full border border-rose-200/45 bg-rose-100/10 px-4 py-1 text-sm text-rose-50">
+                Modern Grooming Agency
+              </p>
+              <h1 className="headline-glow text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
+                <span className="hero-line hero-line-a block">Al Sunnah Probolinggo</span>
+                <span className="hero-line hero-line-b block">Precision Cuts. Strong Presence.</span>
+              </h1>
+              <p className="max-w-xl text-base leading-7 text-rose-50/85 sm:text-lg">
+                Bukan sekadar potong rambut. Kami membangun personal image lewat layanan barber
+                yang presisi, cepat, dan konsisten di tiap kunjungan.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <a href="#contact" className="btn-wow rounded-full px-6 py-3 text-sm font-semibold text-[#5c0f21]">
+                  Booking Sekarang
+                </a>
+                <a href="#services" className="btn-ghost rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white hover:border-rose-100 hover:text-rose-100">
+                  Lihat Layanan
+                </a>
+              </div>
+
+              <div className="mt-2 grid gap-3 sm:grid-cols-3">
+                {highlights.map((item) => (
+                  <div key={item.label} className="stat-card rounded-xl border border-white/25 bg-white/8 px-4 py-3">
+                    <p className="text-xl font-semibold text-white">{item.value}</p>
+                    <p className="text-xs text-rose-50/80">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="hero-panel interactive-card relative z-10 overflow-hidden rounded-3xl border border-white/20 bg-[#4a0d1c]/55 p-8 shadow-2xl shadow-black/30 animate-fade-up delay-1">
+              <div className="absolute -right-16 -top-14 h-48 w-48 rounded-full bg-rose-300/30 blur-2xl animate-float-slow" />
+              <h2 className="title-shine text-2xl font-semibold text-white">Agency Standard Experience</h2>
+              <ul className="mt-5 space-y-4 text-sm leading-6 text-rose-50/90 sm:text-base">
+                <li>• SOP pelayanan cepat dan konsisten.</li>
+                <li>• Konsultasi model sesuai karakter klien.</li>
+                <li>• Peralatan steril di setiap sesi.</li>
+                <li>• Suasana premium tanpa ribet.</li>
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-3 text-xs">
+                <span className="chip">Steril Tools</span>
+                <span className="chip">Expert Kapster</span>
+                <span className="chip">Muslim Friendly</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="marquee-shell border-y border-white/15 bg-[#3a0a15]/55 py-4">
+          <div className="marquee-track">
+            {[...services, ...services].map((service, index) => (
+              <span key={`${service}-${index}`} className="marquee-item">
+                {service}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section id="services" className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 section-reveal">
+          <h2 className="title-shine text-3xl font-semibold text-white sm:text-4xl">Services & Pricing</h2>
+          <p className="mt-4 max-w-2xl text-rose-50/85">
+            Harga berikut disesuaikan dari price list yang kamu kirim.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {priceSections.map((section) => (
+              <article key={section.title} className="interactive-card rounded-2xl border border-rose-100/25 bg-[#4a0d1c]/55 p-6">
+                <h3 className="text-xl font-semibold">{section.title}</h3>
+                <div className="mt-4 space-y-3">
+                  {section.items.map((item) => (
+                    <div key={item.name} className="flex items-center justify-between gap-3 border-b border-white/10 pb-2 text-sm">
+                      <span className="text-rose-50/90">{item.name}</span>
+                      <span className="font-semibold text-white">{item.price}</span>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="about" className="border-y border-white/15 bg-[#2a0810]/60 section-reveal">
+          <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
+            <h2 className="title-shine text-3xl font-semibold text-white sm:text-4xl">About Al Sunnah</h2>
+            <p className="mt-6 max-w-4xl text-base leading-8 text-rose-50/85 sm:text-lg">
+              Al Sunnah Probolinggo dibangun untuk standar grooming yang rapi, bersih, dan tepat
+              waktu. Konsep kami seperti agency service: terstruktur, responsif, dan berorientasi
+              hasil.
+            </p>
+          </div>
+        </section>
+
+        <section id="locations" className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 section-reveal">
+          <h2 className="title-shine text-3xl font-semibold text-white sm:text-4xl">Location & Contact</h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-1">
+            {locations.map((location, index) => (
+              <article key={location.city} className="interactive-card animate-fade-up rounded-2xl border border-rose-100/25 bg-[#4a0d1c]/55 p-6 shadow-lg shadow-black/25" style={{ animationDelay: `${index * 120}ms` }}>
+                <h3 className="text-xl font-semibold">{location.city}</h3>
+                <div className="map-zoom mt-4 overflow-hidden rounded-xl border border-white/10">
+                  <iframe
+                    title={`Map ${location.city}`}
+                    src={location.mapEmbed}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="h-44 w-full"
+                  />
+                </div>
+                <p className="mt-3 text-sm text-rose-50/85">{location.address}</p>
+                <p className="mt-4 text-sm text-white">{location.phone}</p>
+                <p className="mt-1 text-sm text-rose-50/85">Jam Operasional: {location.hours}</p>
+                <a
+                  href={location.mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex rounded-full border border-rose-200/60 px-4 py-2 text-xs font-semibold text-rose-50 hover:bg-rose-100/10"
+                >
+                  Buka Arahan Google Maps
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="barbers" className="border-t border-white/15 bg-[#2a0810]/60 section-reveal">
+          <div className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8">
+            <h2 className="title-shine text-3xl font-semibold text-white sm:text-4xl">Kapster On Duty</h2>
+            <div className="mt-10 grid gap-8 lg:grid-cols-2">
+              {locations.map((location) => (
+                <div key={location.city}>
+                  <h3 className="mb-4 text-xl font-semibold text-white">{location.city}</h3>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    {barbers
+                      .filter((barber) => barber.location === location.city)
+                      .map((barber, index) => (
+                        <article key={barber.name} className="interactive-card animate-fade-up rounded-2xl border border-rose-100/25 bg-[#4a0d1c]/55 p-5" style={{ animationDelay: `${index * 120}ms` }}>
+                          <h3 className="text-lg font-semibold text-white">{barber.name}</h3>
+                          <p className="mt-2 text-sm text-rose-50/85">{barber.specialty}</p>
+                          <p className="mt-4 inline-flex rounded-full border border-rose-200/50 px-3 py-1 text-xs text-rose-50">
+                            Shift: {barber.shift}
+                          </p>
+                        </article>
+                      ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-8 section-reveal">
+          <div className="rounded-3xl border border-rose-100/30 bg-[#4a0d1c]/55 p-8 sm:p-10">
+            <p className="text-sm uppercase tracking-[0.2em] text-rose-100/90">Client Feedback</p>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-rose-50/90 sm:text-2xl">
+              &quot;Pelayanan cepat, kapster komunikatif, hasil potongannya konsisten. Vibe
+              tempatnya premium tapi tetap nyaman.&quot;
+            </p>
+            <p className="mt-4 text-sm text-rose-100/80">- Pelanggan Google Maps</p>
+          </div>
+        </section>
       </main>
+
+      <footer id="contact" className="border-t border-rose-200/30 bg-[#24070e] section-reveal">
+        <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 py-10 text-sm text-rose-50/85 sm:px-8 md:grid-cols-3">
+          <div>
+            <p className="text-base font-semibold tracking-[0.18em] text-white">AL SUNNAH</p>
+            <p className="mt-2">Cukur rapi, pelayanan sepenuh hati.</p>
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-white">Navigasi</h3>
+            <ul className="mt-3 space-y-2">
+              <li><a className="hover:text-white" href="#hero">Home</a></li>
+              <li><a className="hover:text-white" href="#about">About</a></li>
+              <li><a className="hover:text-white" href="#services">Services</a></li>
+              <li><a className="hover:text-white" href="#locations">Location</a></li>
+              <li><a className="hover:text-white" href="#barbers">Kapster</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-base font-semibold text-white">Contacts</h3>
+            <div className="mt-3 space-y-2">
+              <p>WhatsApp: +62 813-9000-1212</p>
+              <p>Instagram: @alsunnah.probolinggo</p>
+              <p>Email: hello@alsunnahbarber.id</p>
+              <p>Alamat: Probolinggo, Jawa Timur</p>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-white/15 py-4 text-center text-xs text-rose-50/70">
+          Copyright {new Date().getFullYear()} Al Sunnah Barbershop. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }
