@@ -140,6 +140,7 @@ export default function Home() {
             <li><a className="hover:text-rose-100 nav-link" href="#services">Services</a></li>
             <li><a className="hover:text-rose-100 nav-link" href="#locations">Location</a></li>
             <li><a className="hover:text-rose-100 nav-link" href="#barbers">Kapster</a></li>
+            <li><a className="hover:text-rose-100 nav-link" href="/admin/login">Admin</a></li>
             <li><a className="rounded-full border border-rose-200/70 px-4 py-2 text-rose-50 hover:bg-rose-100/10 nav-link" href="#contact">Book</a></li>
           </ul>
         </nav>
@@ -172,6 +173,9 @@ export default function Home() {
                 </a>
                 <a href="#services" className="btn-ghost rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white hover:border-rose-100 hover:text-rose-100">
                   Lihat Layanan
+                </a>
+                <a href="/admin/login" className="btn-ghost rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white hover:border-rose-100 hover:text-rose-100">
+                  Admin Login
                 </a>
               </div>
 

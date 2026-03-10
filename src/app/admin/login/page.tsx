@@ -1,11 +1,10 @@
-import { loginAdmin } from "../auth";
-
 export default function AdminLoginPage({
   searchParams,
 }: {
-  searchParams?: { error?: string };
+  searchParams?: { error?: string; next?: string };
 }) {
   const hasError = searchParams?.error === "1";
+  const nextTarget = searchParams?.next && searchParams.next.startsWith("/") ? searchParams.next : "/admin";
 
   return (
     <div className="min-h-screen bg-[#18050b] text-white">
@@ -15,7 +14,8 @@ export default function AdminLoginPage({
           <h1 className="mt-2 text-2xl font-semibold tracking-[0.12em]">Al Sunnah</h1>
           <p className="mt-2 text-sm text-rose-100/70">Dummy login untuk admin sementara.</p>
 
-          <form action={loginAdmin} className="mt-6 grid gap-4">
+          <form action="/admin/login/submit" method="post" className="mt-6 grid gap-4" autoComplete="off">
+            <input type="hidden" name="next" value={nextTarget} />
             <div className="grid gap-2">
               <label className="text-xs uppercase tracking-[0.2em] text-rose-100/70">Username</label>
               <input

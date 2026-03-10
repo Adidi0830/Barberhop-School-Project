@@ -1,4 +1,4 @@
-import { logoutAdmin, requireAdmin } from "./auth";
+import { requireAdmin } from "./auth";
 import { createBooking, deleteBooking, setBookingStatus } from "./actions";
 import { getBookings } from "./data";
 
@@ -32,7 +32,7 @@ export default async function AdminPage() {
           </div>
           <div className="flex items-center gap-4 text-sm text-rose-100/80">
             <span>Dummy Server Mode</span>
-            <form action={logoutAdmin}>
+            <form action="/admin/logout" method="post">
               <button
                 type="submit"
                 className="rounded-full border border-rose-200/40 px-4 py-2 text-xs font-semibold text-rose-100 hover:border-rose-200"
@@ -163,7 +163,7 @@ export default async function AdminPage() {
                     <h3 className="text-lg font-semibold">{booking.name}</h3>
                     <p className="mt-1 text-sm text-rose-100/80">{booking.phone}</p>
                     <p className="mt-2 text-sm text-rose-100/70">
-                      {booking.service} • {booking.date} • {booking.time}
+                      {booking.service} â€¢ {booking.date} â€¢ {booking.time}
                     </p>
                   </div>
                   <span

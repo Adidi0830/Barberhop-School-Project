@@ -1,14 +1,67 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { addBooking, removeBooking, updateBookingStatus } from "./data";
 
+function normalizeText(value: FormDataEntryValue | null, limit = 120) {
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  return value.replace(/[<>]/g, "").trim().slice(0, limit);
+}
+
+function normalizeDate(value: FormDataEntryValue | null) {
+  const raw = normalizeText(value, 16);
+  return /^\d{4}-\d{2}-\d{2}$/.test(raw) ? raw : "";
+}
+
+function normalizeTime(value: FormDataEntryValue | null) {
+  const raw = normalizeText(value, 8);
+  return /^\d{2}:\d{2}$/.test(raw) ? raw : "";
+}
+
+const RATE_LIMIT_WINDOW_MS = 30_000;
+const RATE_LIMIT_MAX = 12;
+const rateLimitMap = new Map<string, { count: number; startedAt: number }>();
+
+function isRateLimited(ip: string) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now - entry.startedAt > RATE_LIMIT_WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, startedAt: now });
+    return false;
+  }
+
+  entry.count += 1;
+  if (entry.count > RATE_LIMIT_MAX) {
+    return true;
+  }
+
+  return false;
+}
+
+function getIp() {
+  const headerStore = headers();
+  const forwarded = headerStore.get("x-forwarded-for");
+  if (forwarded) {
+    return forwarded.split(",")[0]?.trim() || "unknown";
+  }
+  return headerStore.get("x-real-ip") || "local";
+}
+
 export async function createBooking(formData: FormData) {
-  const name = String(formData.get("name") || "").trim();
-  const phone = String(formData.get("phone") || "").trim();
-  const service = String(formData.get("service") || "").trim();
-  const date = String(formData.get("date") || "").trim();
-  const time = String(formData.get("time") || "").trim();
+  const ip = getIp();
+  if (isRateLimited(ip)) {
+    return;
+  }
+  const name = normalizeText(formData.get("name"), 80);
+  const phone = normalizeText(formData.get("phone"), 32);
+  const service = normalizeText(formData.get("service"), 60);
+  const date = normalizeDate(formData.get("date"));
+  const time = normalizeTime(formData.get("time"));
 
   if (!name || !phone || !service || !date || !time) {
     return;
@@ -19,8 +72,12 @@ export async function createBooking(formData: FormData) {
 }
 
 export async function setBookingStatus(formData: FormData) {
-  const id = String(formData.get("id") || "").trim();
-  const status = String(formData.get("status") || "").trim();
+  const ip = getIp();
+  if (isRateLimited(ip)) {
+    return;
+  }
+  const id = normalizeText(formData.get("id"), 16);
+  const status = normalizeText(formData.get("status"), 16);
 
   if (!id || !status) {
     return;
@@ -33,7 +90,11 @@ export async function setBookingStatus(formData: FormData) {
 }
 
 export async function deleteBooking(formData: FormData) {
-  const id = String(formData.get("id") || "").trim();
+  const ip = getIp();
+  if (isRateLimited(ip)) {
+    return;
+  }
+  const id = normalizeText(formData.get("id"), 16);
   if (!id) {
     return;
   }
