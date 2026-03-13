@@ -1,0 +1,32 @@
+[
+  {
+    "id": "B-101",
+    "name": "Ust. Fikri",
+    "location": "Alsunnah Barbershop"
+  },
+  {
+    "id": "B-102",
+    "name": "Akbar",
+    "location": "Alsunnah Barbershop"
+  },
+  {
+    "id": "B-201",
+    "name": "Jimny",
+    "location": "Al Sunnah Barbershop 2"
+  },
+  {
+    "id": "B-202",
+    "name": "Riko",
+    "location": "Al Sunnah Barbershop 2"
+  },
+  {
+    "id": "B-203",
+    "name": "Dimas",
+    "location": "Al Sunnah Barbershop 2"
+  },
+  {
+    "id": "B-204",
+    "name": "Yunus",
+    "location": "Al Sunnah Barbershop 2"
+  }
+]
